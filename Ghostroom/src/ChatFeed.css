@@ -1,0 +1,311 @@
+/* ─── Shell ──────────────────────────────────────────────── */
+.chat-feed {
+  display: flex; flex-direction: column;
+  height: 100vh; height: 100dvh;
+  background: var(--bg-feed);
+  border-right: 1px solid var(--border-subtle);
+  overflow: hidden; position: relative;
+}
+.chat-feed.phase-glitch {
+  animation: glitch-shift 0.5s ease-in-out infinite;
+}
+.chat-feed.phase-countdown {
+  animation: meltdown-pulse 0.8s ease-in-out infinite;
+}
+
+/* ─── Topbar ─────────────────────────────────────────────── */
+.cf-topbar {
+  display: flex; align-items: center; gap: 8px;
+  height: 48px; padding: 0 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-sidebar);
+  box-shadow: var(--shadow-1); flex-shrink: 0;
+  transition: border-color 0.3s;
+}
+.cf-topbar.warning { animation: meltdown-pulse 2s ease-in-out infinite; }
+.cf-room-emoji { font-size: 15px; flex-shrink: 0; }
+.cf-room-info { flex: 1; min-width: 0; }
+.cf-room-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 700; display: block;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cf-room-sub {
+  font-size: 10.5px; color: var(--text-3); display: block;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cf-topbar-right {
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+}
+.cf-expiry {
+  display: flex; align-items: center; gap: 4px;
+  font-family: 'DM Mono', monospace; font-size: 10.5px;
+  color: var(--text-3); padding: 3px 7px;
+  background: var(--bg-active); border: 1px solid var(--border-soft);
+  border-radius: 4px;
+}
+.cf-expiry.warn { color: var(--danger); border-color: rgba(239,68,68,0.35); background: rgba(239,68,68,0.08); }
+.cf-icon-btn {
+  width: 28px; height: 28px; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-3); transition: background 0.1s, color 0.1s;
+}
+.cf-icon-btn:hover { background: var(--bg-hover); color: var(--text-2); }
+.cf-menu-btn { display: none; }
+
+/* ─── Messages area ──────────────────────────────────────── */
+.cf-msgs {
+  flex: 1; overflow-y: auto;
+  padding: 6px 0; display: flex; flex-direction: column;
+  scroll-behavior: smooth;
+}
+.cf-loading {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.cf-loading span {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--text-4);
+  animation: dp 1.2s ease-in-out infinite;
+}
+.cf-loading span:nth-child(2) { animation-delay: 0.18s; }
+.cf-loading span:nth-child(3) { animation-delay: 0.36s; }
+@keyframes dp { 0%,60%,100%{transform:scale(1);opacity:.4}30%{transform:scale(1.3);opacity:1} }
+
+/* Date sep */
+.cf-date-sep {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; flex-shrink: 0;
+}
+.cf-date-sep span:first-child,
+.cf-date-sep span:last-child { flex: 1; height: 1px; background: var(--border-subtle); }
+.cf-date-lbl { font-size: 10px; font-weight: 600; color: var(--text-3); letter-spacing: 0.4px; white-space: nowrap; }
+
+/* ─── Message row ────────────────────────────────────────── */
+.cf-msg {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 3px 14px; position: relative; transition: background 0.08s;
+}
+.cf-msg:hover { background: var(--bg-hover); }
+.cf-msg.compact { padding-top: 1px; padding-bottom: 1px; }
+.cf-msg.compact .cf-av { visibility: hidden; }
+
+/* Avatar */
+.cf-av {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--bg-active); border: 1px solid var(--border-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif; font-size: 9.5px; font-weight: 700;
+  color: var(--text-3); flex-shrink: 0; margin-top: 2px;
+}
+
+/* Body */
+.cf-body { flex: 1; min-width: 0; }
+.cf-head { display: flex; align-items: baseline; gap: 7px; margin-bottom: 3px; }
+.cf-sender { font-size: 12px; font-weight: 600; color: var(--text-2); }
+.cf-ts { font-size: 10px; color: var(--text-3); font-family: 'DM Mono', monospace; }
+
+/* Reply ref */
+.cf-reply-ref {
+  display: flex; align-items: center; gap: 6px;
+  margin-bottom: 4px; opacity: 0.6;
+}
+.cf-rr-bar { width: 2px; height: 14px; background: var(--text-3); border-radius: 1px; flex-shrink: 0; }
+.cf-rr-who { font-size: 10.5px; font-weight: 600; color: var(--text-2); }
+.cf-rr-text { font-size: 10.5px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+
+/* ─── BUBBLE — equal for all ─────────────────────────────── */
+.cf-bubble {
+  display: inline-block;
+  max-width: min(480px, 72vw); min-width: 48px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px 10px 10px 10px;
+  padding: 8px 12px; box-shadow: var(--shadow-1);
+}
+.cf-bubble.mine {
+  /* bg & border set inline */
+  border-radius: 10px 4px 10px 10px;
+}
+.cf-text {
+  font-size: 13px; color: var(--text-1);
+  line-height: 1.55; word-break: break-word; margin: 0;
+}
+.cf-bubble.mine .cf-text { font-weight: 500; }
+
+/* Reactions */
+.cf-rxns { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+.cf-rxn {
+  display: flex; align-items: center; gap: 3px;
+  padding: 2px 7px; border-radius: 4px;
+  background: var(--bg-hover); border: 1px solid var(--border-subtle);
+  font-size: 11px; color: var(--text-2); transition: border-color 0.1s;
+}
+.cf-rxn span { font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 600; color: var(--text-3); }
+.cf-rxn.active { border-color: var(--pink-border); background: var(--pink-soft); }
+
+/* Hover actions */
+.cf-acts {
+  position: absolute; top: 2px; right: 14px;
+  display: flex; align-items: center; gap: 2px;
+  opacity: 0; pointer-events: none; transition: opacity 0.1s;
+  background: var(--bg-active); border: 1px solid var(--border-soft);
+  border-radius: 6px; padding: 3px 4px; box-shadow: var(--shadow-2);
+}
+.cf-msg:hover .cf-acts { opacity: 1; pointer-events: all; }
+.cf-act {
+  width: 24px; height: 24px; border-radius: 4px; font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-3); transition: background 0.1s, color 0.1s;
+}
+.cf-act:hover { background: var(--bg-hover); color: var(--text-2); }
+.cf-act.ico { color: var(--text-3); }
+.cf-act.danger:hover { color: var(--danger); background: var(--danger-soft); }
+
+/* System message */
+.cf-system-msg {
+  display: flex; align-items: center; gap: 7px;
+  padding: 4px 14px 4px 54px; font-size: 11.5px;
+  color: var(--indigo); font-style: italic;
+  border-left: 2px solid var(--indigo-border);
+  margin: 2px 0;
+}
+.cf-system-icon { color: var(--indigo); flex-shrink: 0; }
+
+/* Typing indicator */
+.cf-typing {
+  display: flex; align-items: center; gap: 7px;
+  padding: 4px 14px 8px 54px; font-size: 11px; color: var(--text-3); font-style: italic;
+}
+.cf-typing-dots { display: flex; gap: 2px; }
+.cf-typing-dots i {
+  display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--text-3);
+  animation: td 1.2s ease-in-out infinite;
+}
+.cf-typing-dots i:nth-child(2) { animation-delay: 0.18s; }
+.cf-typing-dots i:nth-child(3) { animation-delay: 0.36s; }
+@keyframes td { 0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)} }
+
+/* New message pill */
+.cf-new-pill {
+  position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+  padding: 6px 14px; border-radius: 99px;
+  background: var(--pink); color: #fff;
+  font-size: 11.5px; font-weight: 600; border: none;
+  box-shadow: 0 0 16px var(--pink-glow);
+  animation: toast-in 0.2s ease;
+  transition: opacity 0.15s;
+}
+.cf-new-pill:hover { filter: brightness(1.1); }
+
+/* ─── Burn on read ───────────────────────────────────────── */
+.burn-wrapper { position: relative; }
+.burn-wrapper.burning {
+  animation: burnOut 0.5s ease forwards;
+}
+@keyframes burnOut {
+  0%   { opacity: 1; filter: none; }
+  50%  { filter: brightness(2) hue-rotate(20deg); }
+  100% { opacity: 0; transform: scale(0.97); }
+}
+.burn-timer {
+  position: absolute; bottom: 0; left: 54px;
+  height: 2px; background: var(--pink);
+  animation: burnTimer 10s linear forwards;
+  border-radius: 1px;
+}
+@keyframes burnTimer { from { width: calc(100% - 68px); } to { width: 0; } }
+
+/* ─── Empty state ────────────────────────────────────────── */
+.cf-empty {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; padding: 32px;
+}
+.cf-empty-icon { font-size: 28px; margin-bottom: 12px; }
+.cf-empty-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 7px;
+}
+.cf-empty-sub { font-size: 12.5px; color: var(--text-3); line-height: 1.65; margin-bottom: 20px; }
+.cf-prompts { display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 290px; }
+.cf-prompt {
+  padding: 9px 14px; background: var(--bg-card);
+  border: 1px solid var(--border-subtle); border-radius: 7px;
+  color: var(--text-2); font-size: 12.5px; font-weight: 500; text-align: left;
+  transition: all 0.12s;
+}
+.cf-prompt:hover { background: var(--bg-hover); border-color: var(--border-mid); color: var(--text-1); }
+.cf-create-btn {
+  padding: 9px 20px; background: var(--pink); color: #fff;
+  border-radius: 7px; font-size: 13px; font-weight: 600;
+  transition: box-shadow 0.15s;
+}
+.cf-create-btn:hover { box-shadow: 0 0 14px var(--pink-glow); }
+
+/* PW gate */
+.pw-row { display: flex; gap: 8px; width: 100%; max-width: 300px; }
+.pw-row.err .pw-input { border-color: var(--danger) !important; }
+.pw-input {
+  flex: 1; padding: 9px 12px; background: var(--bg-input);
+  border: 1px solid var(--border-mid); border-radius: 7px;
+  color: var(--text-1); font-size: 13px; outline: none;
+  transition: border-color 0.15s;
+}
+.pw-input:focus { border-color: var(--pink-border); }
+.pw-btn {
+  padding: 9px 16px; background: var(--pink); color: #fff;
+  border-radius: 7px; font-size: 13px; font-weight: 600;
+}
+.pw-err { font-size: 11.5px; color: var(--danger); margin-top: 8px; }
+
+/* ─── Input area ─────────────────────────────────────────── */
+.cf-input-area {
+  flex-shrink: 0; padding: 10px 14px 12px;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-sidebar);
+}
+.cf-reply-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 10px; margin-bottom: 8px;
+  background: var(--bg-active); border: 1px solid var(--border-soft); border-radius: 6px;
+}
+.cf-rb-line { width: 2px; height: 100%; min-height: 14px; background: var(--pink); border-radius: 1px; flex-shrink: 0; }
+.cf-rb-body { flex: 1; min-width: 0; }
+.cf-rb-who { font-size: 11px; font-weight: 600; color: var(--pink); margin-right: 5px; }
+.cf-rb-text { font-size: 11px; color: var(--text-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cf-rb-close { color: var(--text-3); font-size: 12px; padding: 2px 4px; border-radius: 3px; transition: color 0.1s; }
+.cf-rb-close:hover { color: var(--text-2); }
+.cf-input-box {
+  display: flex; align-items: flex-end; gap: 6px;
+  background: var(--bg-input); border: 1px solid var(--border-mid);
+  border-radius: 8px; padding: 7px 7px 7px 12px;
+  transition: border-color 0.15s; box-shadow: var(--shadow-1);
+}
+.cf-ta {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: var(--text-1); font-size: 13px; line-height: 1.5;
+  resize: none; overflow-y: auto; padding: 1px 0;
+  min-height: 22px; max-height: 104px;
+}
+.cf-ta::placeholder { color: var(--text-4); }
+.cf-send {
+  width: 30px; height: 30px; border-radius: 6px; flex-shrink: 0;
+  background: var(--bg-active); border: 1px solid var(--border-soft);
+  color: var(--text-3); display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.cf-send.ready { color: #fff; border-color: transparent; }
+.cf-send:disabled:not(.ready) { opacity: 0.4; }
+.cf-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 5px; }
+.cf-anon { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--text-3); }
+.cf-anon-dot { width: 5px; height: 5px; border-radius: 50%; }
+.cf-hint { font-size: 10.5px; color: var(--text-4); }
+
+/* ─── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .chat-feed { height: calc(100dvh - 54px); }
+  .cf-room-sub { display: none; }
+  .cf-hint { display: none; }
+  .cf-input-area { padding: 8px 10px 10px; }
+  .cf-msgs .cf-msg { padding: 3px 10px; }
+  .cf-menu-btn { display: flex !important; }
+  .cf-system-msg { padding-left: 44px; }
+}

@@ -1,0 +1,32 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users — can only read/write their own profile
+    match /users/{userId} {
+      allow read:  if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Rooms — anyone authenticated can read
+    match /rooms/{roomId} {
+      allow read: if request.auth != null;
+      allow write: if false; // seeded server-side only
+
+      // Messages — anyone authenticated can read/create
+      // Only the message author can update (reactions) or delete
+      match /messages/{messageId} {
+        allow read:   if request.auth != null;
+        allow create: if request.auth != null
+                      && request.resource.data.uid == request.auth.uid
+                      && request.resource.data.text is string
+                      && request.resource.data.text.size() > 0
+                      && request.resource.data.text.size() <= 2000;
+        allow update: if request.auth != null; // reactions from any auth user
+        allow delete: if request.auth != null
+                      && resource.data.uid == request.auth.uid;
+      }
+    }
+  }
+}
