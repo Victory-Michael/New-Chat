@@ -1,0 +1,167 @@
+.sidebar {
+  display: flex; flex-direction: column;
+  height: 100vh; background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-mid);
+  overflow: hidden; transition: transform 0.26s cubic-bezier(0.25,1,0.5,1);
+}
+
+/* Wordmark */
+.sb-wordmark {
+  display: flex; align-items: center; gap: 8px;
+  height: 48px; padding: 0 14px;
+  border-bottom: 1px solid var(--border-faint); flex-shrink: 0;
+}
+.sb-logo {
+  width: 22px; height: 22px; border-radius: 5px;
+  background: var(--pink);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.sb-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px; font-weight: 700; color: var(--text-1); letter-spacing: -0.3px;
+}
+.sb-env-badge {
+  font-size: 9px; font-weight: 600; color: var(--text-3);
+  background: var(--bg-hover); border: 1px solid var(--border-soft);
+  border-radius: 3px; padding: 1px 5px;
+}
+.sb-theme-btn {
+  margin-left: auto; width: 26px; height: 26px; border-radius: 5px;
+  border: 1px solid var(--border-soft); background: var(--bg-hover);
+  color: var(--text-3); display: flex; align-items: center; justify-content: center;
+  transition: all 0.12s; flex-shrink: 0;
+}
+.sb-theme-btn:hover { background: var(--bg-active); color: var(--text-2); }
+
+/* Profile */
+.sb-profile {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 10px; margin: 6px 8px;
+  border-radius: 6px; border: 1px solid var(--border-soft);
+  background: var(--bg-card); flex-shrink: 0; box-shadow: var(--shadow-1);
+}
+.sb-av {
+  position: relative; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--bg-active); border: 1px solid var(--border-mid);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 700;
+  color: var(--text-3); flex-shrink: 0;
+}
+.sb-online-pip {
+  position: absolute; bottom: -1px; right: -1px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--indigo); border: 1.5px solid var(--bg-sidebar);
+}
+.sb-profile-text { flex: 1; min-width: 0; }
+.sb-username {
+  font-size: 12px; font-weight: 600; color: var(--text-1);
+  display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sb-role { font-size: 9.5px; color: var(--text-3); display: block; margin-top: 1px; }
+.sb-more-btn {
+  color: var(--text-3); padding: 2px; border-radius: 3px;
+  display: flex; align-items: center; transition: color 0.1s;
+}
+.sb-more-btn:hover { color: var(--text-2); }
+
+/* Section label */
+.sb-section-lbl {
+  font-size: 9.5px; font-weight: 700; color: var(--text-3);
+  letter-spacing: 0.6px; text-transform: uppercase; padding: 10px 14px 3px;
+}
+
+/* Nav */
+.sb-nav { display: flex; flex-direction: column; gap: 1px; padding: 0 8px; }
+.sb-nav-item {
+  display: flex; align-items: center; gap: 8px; padding: 7px 8px;
+  border-radius: 5px; color: var(--text-2);
+  font-size: 12.5px; font-weight: 500; width: 100%; text-align: left;
+  position: relative; transition: background 0.1s, color 0.1s;
+}
+.sb-nav-item:hover { background: var(--bg-hover); color: var(--text-1); }
+.sb-nav-item.act { background: var(--bg-active); color: var(--text-1); }
+.sb-nav-item.act::before {
+  content: ''; position: absolute; left: 0; top: 6px; bottom: 6px;
+  width: 2px; background: var(--pink); border-radius: 0 2px 2px 0;
+}
+.sb-nav-ico { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.55; }
+.sb-nav-item.act .sb-nav-ico, .sb-nav-item:hover .sb-nav-ico { opacity: 1; }
+.sb-nav-label { flex: 1; }
+.sb-pip {
+  min-width: 16px; height: 16px; border-radius: 3px;
+  background: var(--pink); color: #fff;
+  font-size: 9px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; padding: 0 4px;
+}
+
+/* Rooms header */
+.sb-rooms-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px 3px; margin-top: 4px;
+}
+.sb-create-btn {
+  width: 20px; height: 20px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-3); background: transparent;
+  transition: background 0.1s, color 0.1s;
+}
+.sb-create-btn:hover { background: var(--bg-hover); color: var(--pink); }
+
+/* Channel list */
+.sb-ch-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 1px; padding: 0 8px; }
+.sb-no-rooms { padding: 10px 6px; }
+.sb-no-rooms p { font-size: 11.5px; color: var(--text-3); margin-bottom: 6px; }
+.sb-create-first {
+  font-size: 11.5px; font-weight: 600; color: var(--pink);
+  background: var(--pink-soft); border: 1px solid var(--pink-border);
+  border-radius: 5px; padding: 5px 10px; transition: all 0.12s;
+}
+.sb-create-first:hover { box-shadow: 0 0 10px var(--pink-glow); }
+
+.sb-ch-item {
+  display: flex; align-items: center; gap: 7px; padding: 6px 8px;
+  border-radius: 5px; border: 1px solid transparent;
+  color: var(--text-3); font-size: 12px; width: 100%;
+  text-align: left; position: relative; overflow: hidden;
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+.sb-ch-item:hover { background: var(--bg-hover); color: var(--text-2); }
+.sb-ch-item.act { color: var(--text-1); font-weight: 500; }
+.sb-ch-emoji { font-size: 13px; flex-shrink: 0; }
+.sb-ch-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sb-ch-preview {
+  display: none; /* shown when active or hovered */
+  font-size: 10px; color: var(--text-3);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100px;
+}
+.sb-ch-item.act .sb-ch-preview { display: block; }
+.sb-lock-ico { color: var(--text-3); flex-shrink: 0; }
+.sb-ch-bar {
+  position: absolute; left: 0; top: 5px; bottom: 5px;
+  width: 2px; border-radius: 0 2px 2px 0;
+}
+
+/* Score */
+.sb-score-section {
+  flex-shrink: 0; padding: 10px 14px 12px;
+  border-top: 1px solid var(--border-faint);
+}
+.sb-sc-row {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;
+}
+.sb-sc-lbl {
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--text-3);
+}
+.sb-sc-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px; font-weight: 700; color: var(--pink);
+}
+.sb-sc-track {
+  height: 2px; background: var(--border-soft); border-radius: 99px;
+  overflow: hidden; margin-bottom: 4px;
+}
+.sb-sc-fill { height: 100%; background: var(--pink); border-radius: 99px; transition: width 0.6s ease; }
+.sb-sc-meta { display: flex; justify-content: space-between; }
+.sb-sc-meta span { font-size: 9.5px; color: var(--text-3); }
