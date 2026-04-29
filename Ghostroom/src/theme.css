@@ -1,0 +1,124 @@
+/* ═══════════════════════════════════════════════════════════
+   MSGIN — VOID THEME  (dark-only, no light mode)
+   Single source of truth for all design tokens
+═══════════════════════════════════════════════════════════ */
+:root,
+[data-theme],
+[data-theme="dark"],
+[data-theme="light"] {
+  /* ── Void backgrounds ─────────────────────────────────── */
+  --bg-app:        #050505;
+  --bg-sidebar:    #0A0A0A;
+  --bg-feed:       #060606;
+  --bg-card:       #0F0F0F;
+  --bg-input:      #111111;
+  --bg-hover:      #161616;
+  --bg-active:     #1C1C1E;
+  --bg-overlay:    rgba(0,0,0,0.75);
+
+  /* ── Borders ──────────────────────────────────────────── */
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-soft:   rgba(255,255,255,0.09);
+  --border-mid:    rgba(255,255,255,0.13);
+  --border-hard:   rgba(255,255,255,0.20);
+
+  /* ── Text hierarchy ───────────────────────────────────── */
+  --text-1:        #EFEFEF;
+  --text-2:        #A0A0A0;
+  --text-3:        #606060;
+  --text-4:        #333333;
+
+  /* ── Brand: Spirit Pink ───────────────────────────────── */
+  --pink:          #EC4899;
+  --pink-soft:     rgba(236,72,153,0.14);
+  --pink-border:   rgba(236,72,153,0.32);
+  --pink-glow:     rgba(236,72,153,0.22);
+  --pink-dim:      rgba(236,72,153,0.08);
+
+  /* ── Accent: Electric Indigo ──────────────────────────── */
+  --indigo:        #6366F1;
+  --indigo-soft:   rgba(99,102,241,0.13);
+  --indigo-border: rgba(99,102,241,0.28);
+  --indigo-glow:   rgba(99,102,241,0.20);
+
+  /* ── Semantic ─────────────────────────────────────────── */
+  --danger:        #EF4444;
+  --danger-soft:   rgba(239,68,68,0.12);
+  --warn:          #F59E0B;
+  --warn-soft:     rgba(245,158,11,0.12);
+  --success:       #10B981;
+  --success-soft:  rgba(16,185,129,0.12);
+
+  /* ── Shadows ──────────────────────────────────────────── */
+  --shadow-1:      0 1px 4px rgba(0,0,0,0.4);
+  --shadow-2:      0 4px 16px rgba(0,0,0,0.5);
+  --shadow-3:      0 8px 32px rgba(0,0,0,0.65);
+
+  /* ── Scrollbar ────────────────────────────────────────── */
+  --scrollbar:     rgba(255,255,255,0.08);
+
+  /* ── Expiry / Meltdown palette ────────────────────────── */
+  --melt-glow:     rgba(236,72,153,0.35);
+  --melt-border:   rgba(236,72,153,0.60);
+}
+
+/* ── Glitch / Meltdown animation ─────────────────────────── */
+@keyframes glitch-shift {
+  0%   { transform: translate(0); filter: none; }
+  10%  { transform: translate(-2px, 1px); filter: hue-rotate(90deg) saturate(2); }
+  20%  { transform: translate(2px, -1px); filter: hue-rotate(-90deg); }
+  30%  { transform: translate(-1px, 2px); filter: none; }
+  40%  { transform: translate(1px, -2px); filter: hue-rotate(180deg) saturate(3); }
+  50%  { transform: translate(0); filter: none; }
+  60%  { transform: translate(-3px, 0); clip-path: inset(30% 0 40% 0); }
+  70%  { transform: translate(3px, 1px); clip-path: none; }
+  80%  { transform: translate(-1px, -1px); filter: brightness(1.4) contrast(1.2); }
+  90%  { transform: translate(1px, 2px); filter: none; }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-scanline {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 100vh; }
+}
+
+@keyframes meltdown-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--melt-glow); }
+  50%       { box-shadow: 0 0 24px 4px var(--melt-glow); }
+}
+
+@keyframes countdown-tick {
+  0%   { transform: scale(1.15); color: var(--danger); }
+  100% { transform: scale(1); color: var(--text-1); }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-8px) scale(0.97); }
+}
+
+@keyframes pip-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.35; transform: scale(0.8); }
+}
+
+@keyframes badge-pop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  60%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes system-msg-in {
+  from { opacity: 0; transform: translateX(-6px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
