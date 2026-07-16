@@ -8,7 +8,7 @@ const COLORS = [
   "#8B5CF6","#06B6D4","#F97316","#84CC16","#E879F9",
 ];
 
-const STEPS = ["Name & Topic", "Identity", "Access", "Preview"];
+const STEPS = ["Name ", "Identity", "Access", "Preview"];
 
 export default function RoomModal({ user, profile, onCreated, onClose }) {
   const [step, setStep] = useState(0);
