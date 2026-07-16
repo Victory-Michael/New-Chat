@@ -802,3 +802,13 @@ textarea {
     font-size: 16px !important;
   }
 }
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh; /* Force dynamic viewport height */
+  overflow: hidden; /* ABSOLUTELY stops the main browser viewport from scrolling */
+  position: fixed; /* Extra security for iOS Safari keyboard behavior */
+}
