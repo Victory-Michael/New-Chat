@@ -946,7 +946,7 @@ useEffect(() => {
   const isEmpty = Array.isArray(messages) && messages.length === 0;
 
   return (
-    <main className="chat-feed">
+    <main className="chat-feed" style={{ display: "flex", flexDirection: "column", height: "100dvh", overflow: "hidden" }}>
       {!parentShowToast && (
         <div
           className="cf-toast"
@@ -968,8 +968,8 @@ useEffect(() => {
         />
       )}
 
-      {/* Topbar */}
-      <div className="cf-topbar">
+      {/* Topbar (FIXED AT THE TOP) */}
+      <div className="cf-topbar" style={{ flexShrink: 0 }}>
         {/* Back Button */}
         <button className="cf-back-btn" onClick={onBack} aria-label="Go back">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -1043,7 +1043,7 @@ useEffect(() => {
         </div>
       </div>
 
-      {/* Messages Feed Viewport Container */}
+      {/* Messages Feed Viewport Container (FLEXES TO FILL MIDDLE SPACE AND ENFORCES NO SCROLL OVERFLOW) */}
       <div className="cf-feed-relative-wrapper" style={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
         {isLoading ? (
           <SkeletonFeed />
@@ -1128,8 +1128,8 @@ useEffect(() => {
       </div>
     
 
-      {/* Input area */}
-      <div className="cf-input-area">
+      {/* Input Area (STAYS LOCKED INDEPENDENTLY AT THE BOTTOM) */}
+      <div className="cf-input-area" style={{ flexShrink: 0 }}>
         <ReplyQuote replyTo={replyTo} onClear={() => setReplyTo(null)} />
         {sending && <div className="cf-send-status">Sending...</div>}
         {sendError && <div className="cf-send-status error">Failed to send. Tap send to retry.</div>}
@@ -1143,6 +1143,7 @@ useEffect(() => {
             onKeyDown={handleKey}
             rows={1}
             disabled={sending}
+            style={{ fontSize: "16px" }} /* Directly blocks iOS/Chrome auto-zoom behavior */
           />
           <button
             className={`cf-send${draft.trim() ? " ready" : ""}`}

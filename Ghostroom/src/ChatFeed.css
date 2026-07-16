@@ -1465,3 +1465,66 @@
     height: 16px;
   }
 }
+
+/* Parent Container: Fills the entire chat panel height */
+.chat-feed-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* If using Next.js/React layout, make sure parent is height-constrained */
+  height: 100dvh; /* Dynamic Viewport Height prevents keyboard clipping on mobile */
+  overflow: hidden; /* Stops the entire page from scrolling */
+  background: var(--bg-app);
+}
+
+/* Header locks at top */
+.cf-header {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border-faint);
+  background: var(--bg-sidebar);
+}
+
+/* Middle Scroll Area handles all scrolling */
+.cf-messages-scroll-area {
+  flex: 1; /* Automatically stretches to fill middle space */
+  overflow-y: auto; /* Handles scrolling of messages inside */
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS mobile */
+}
+
+/* Input container locks at the bottom */
+.cf-input-area {
+  flex-shrink: 0; /* Never allow input container to shrink */
+  padding: 12px 16px;
+  background: var(--bg-sidebar);
+  border-top: 1px solid var(--border-faint);
+  /* Safe area padding keeps it styled beautifully above virtual home indicators on newer iPhones */
+  padding-bottom: calc(12px + env(safe-area-inset-bottom)); 
+}
+
+/* Layout for the input form itself */
+.cf-input-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-app);
+  border: 1px solid var(--border-mid);
+  border-radius: 24px;
+  padding: 4px 6px 4px 16px;
+}
+
+.cf-message-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-1);
+  padding: 8px 0;
+  font-size: 16px; /* Prevents auto-zoom! */
+}

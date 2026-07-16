@@ -792,3 +792,13 @@ textarea {
     display: flex !important;
   }
 }
+
+/* Prevent automatic zoom on focus for mobile browsers */
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select,
+  .field-input {
+    font-size: 16px !important;
+  }
+}
